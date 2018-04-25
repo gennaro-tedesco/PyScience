@@ -1,0 +1,8 @@
+{
+    "config":{
+        "host":"localhost",
+        "user":"root",
+        "password":"XYZ",
+        "db":"database_name"
+    }
+}
