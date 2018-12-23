@@ -1,4 +1,6 @@
 import pandas as pd
+import forestci as fci
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from itertools import product
@@ -46,9 +48,10 @@ def train_model(train_vectors, train_labels):
 			best_max_features = f
 			best_score, best_est = est.oob_score, est
 	print("best n_estimators={}, best_max_features={}"
-		  .format(best_n_estimators, best_max_features))
+		.format(best_n_estimators, best_max_features))
 	return est
 
 
-def get_prediction(model, test_vectors):
-	return pd.Series(model.predict(test_vectors))
+def get_prediction(model, train_features, test_features):
+	error_pred = fci.random_forest_error(model, train_features, test_features)
+	return pd.Series(model.predict(test_features)), error_pred

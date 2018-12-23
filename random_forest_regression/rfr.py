@@ -1,8 +1,11 @@
 import math
+import matplotlib.pyplot as plt
+import numpy as np
 from random_forest_regression.rfr_utils import *
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import r2_score
 
+plt.style.use('seaborn')
 
 def main(data_df):
     assert isinstance(data_df, pd.DataFrame)
@@ -17,11 +20,11 @@ def main(data_df):
     rf_model = train_model(train_features, train_actuals)
 
     print("getting predictions...")
-    test_pred = get_prediction(rf_model, test_features)
+    test_pred, error_pred = get_prediction(rf_model, train_features, test_features)
 
     print("\nprinting summary:")
     print_summary(rf_model, features_names, test_actuals, test_pred)
-    #plot_predictions(test_actuals, test_pred)
+    plot_predictions(test_actuals, test_pred, error_pred)
 
 
 def print_summary(rf_model, features_names, test_actuals, test_pred):
@@ -29,7 +32,7 @@ def print_summary(rf_model, features_names, test_actuals, test_pred):
     error = math.sqrt(mean_squared_error(test_actuals, test_pred))
     importances = list(rf_model.feature_importances_)
     feature_importances = [(feature, round(importance, 3))
-                           for feature, importance in zip(features_names, importances)]
+                        for feature, importance in zip(features_names, importances)]
     feature_importances = sorted(feature_importances, key=lambda x: x[1], reverse=True)
     print("r2 score is: {}".format(test_r2_score))
     print("square root of residuals is: {}".format(error))
@@ -37,12 +40,12 @@ def print_summary(rf_model, features_names, test_actuals, test_pred):
     [print('{:20}: {}'.format(*pair)) for pair in feature_importances]
 
 
-def plot_predictions(test_actuals, test_pred):
-    import matplotlib.pyplot as plt
-    plt.style.use('seaborn')
+def plot_predictions(test_actuals, test_pred, errors):
     assert len(test_pred) == len(test_actuals)
-    plt.plot(list(range(0, len(test_actuals))), test_actuals, 'b-', label='actual')
-    plt.plot(list(range(0, len(test_pred))), test_pred, 'r-', label='pred')
+    plt.errorbar(list(range(0, len(test_actuals))), test_actuals, yerr=np.sqrt(errors), fmt='bo-', label='actual')
+    plt.plot(list(range(0, len(test_pred))), test_pred, 'ro-', label='pred')
+    #plt.errorbar(test_actuals, test_pred, yerr=np.sqrt(errors), fmt='o')
+    #plt.plot([min(test_actuals), max(test_actuals)], [min(test_actuals), max(test_actuals)], 'k--')
     plt.show()
 
 
