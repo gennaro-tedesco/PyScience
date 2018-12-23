@@ -30,8 +30,7 @@ def print_summary(rf_model, features_names, test_actuals, test_pred):
     importances = list(rf_model.feature_importances_)
     feature_importances = [(feature, round(importance, 3))
                            for feature, importance in zip(features_names, importances)]
-    feature_importances = sorted(
-        feature_importances, key=lambda x: x[1], reverse=True)
+    feature_importances = sorted(feature_importances, key=lambda x: x[1], reverse=True)
     print("r2 score is: {}".format(test_r2_score))
     print("square root of residuals is: {}".format(error))
     print("\nfeatures importance:")
@@ -42,8 +41,7 @@ def plot_predictions(test_actuals, test_pred):
     import matplotlib.pyplot as plt
     plt.style.use('seaborn')
     assert len(test_pred) == len(test_actuals)
-    plt.plot(list(range(0, len(test_actuals))),
-             test_actuals, 'b-', label='actual')
+    plt.plot(list(range(0, len(test_actuals))), test_actuals, 'b-', label='actual')
     plt.plot(list(range(0, len(test_pred))), test_pred, 'r-', label='pred')
     plt.show()
 

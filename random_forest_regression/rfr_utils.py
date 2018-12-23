@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
-
+from itertools import product
 
 
 def get_encoding(df):
@@ -29,9 +29,25 @@ def get_split(features, actuals):
 
 def train_model(train_vectors, train_labels):
 	assert isinstance(train_vectors, pd.DataFrame)
-	rf = RandomForestRegressor(n_estimators=1000)
-	rf.fit(train_vectors, train_labels)
-	return rf
+	parameter_grid = [
+		(100, 200, 500, 1000),
+		(0.3, 0.4, 0.5)
+	]
+	best_score = float("-inf")
+
+	for n, f in product(*parameter_grid):
+		print("training on n_estimators={} and max_features={}".format(n, f))
+		est = RandomForestRegressor(oob_score=True,
+									n_estimators=n,
+									max_features=f)
+		est.fit(train_vectors, train_labels)
+		if est.oob_score > best_score:
+			best_n_estimators = n
+			best_max_features = f
+			best_score, best_est = est.oob_score, est
+	print("best n_estimators={}, best_max_features={}"
+		  .format(best_n_estimators, best_max_features))
+	return est
 
 
 def get_prediction(model, test_vectors):
