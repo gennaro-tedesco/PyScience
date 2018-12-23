@@ -1,5 +1,0 @@
-config:
-    host: localhost
-    user: root
-    passwd: XYZ
-    db: database_name
