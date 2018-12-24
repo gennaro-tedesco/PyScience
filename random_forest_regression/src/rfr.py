@@ -6,6 +6,10 @@ from sklearn.metrics import mean_squared_error
 from sklearn.metrics import r2_score
 
 plt.style.use('seaborn-dark')
+plt.rcParams["axes.edgecolor"] = "black"
+plt.rcParams["axes.linewidth"] = 1
+plt.rcParams["lines.linewidth"] = 0.5
+plt.rcParams["lines.markersize"] = 3
 
 def main(data_df):
     assert isinstance(data_df, pd.DataFrame)
@@ -39,10 +43,6 @@ def print_summary(rf_model, features_names, test_actuals, test_pred):
 
 def plot_predictions(test_actuals, test_pred, errors):
     assert len(test_pred) == len(test_actuals)
-    plt.rcParams["axes.edgecolor"] = "black"
-    plt.rcParams["axes.linewidth"] = 1
-    plt.rcParams["lines.linewidth"] = 0.5
-    plt.rcParams["lines.markersize"]=3
     plt.subplot(2, 1, 1)
     plt.errorbar(list(range(0, len(test_actuals))), test_actuals, 
                 yerr=np.sqrt(errors), 

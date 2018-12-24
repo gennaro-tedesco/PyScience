@@ -6,13 +6,14 @@ from statsmodels.tsa.stattools import adfuller
 from statsmodels.tsa.seasonal import seasonal_decompose
 from statsmodels.tsa.arima_model import ARMAResults
 from pyramid.arima import auto_arima
+
 plt.style.use('seaborn-dark')
+plt.rcParams["axes.edgecolor"] = "black"
+plt.rcParams["axes.linewidth"] = 1
 
 # ----------------------------- #
 # define the object time series #
 # ----------------------------- #
-
-
 def get_ts():
     rng = pd.date_range('1/1/2018', periods=31, freq='H')
     ts = pd.Series(np.random.randn(len(rng)), index=rng)
