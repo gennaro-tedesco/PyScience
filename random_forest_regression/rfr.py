@@ -24,21 +24,17 @@ def main(data_df):
 
     print("\nprinting summary:")
     print_summary(rf_model, features_names, test_actuals, test_pred)
-    plot_predictions(test_actuals, test_pred, error_pred)
+    #plot_predictions(test_actuals, test_pred, error_pred)
 
 
 def print_summary(rf_model, features_names, test_actuals, test_pred):
     test_r2_score = r2_score(test_actuals, test_pred)
     error = math.sqrt(mean_squared_error(test_actuals, test_pred))
-    importances = list(rf_model.feature_importances_)
-    feature_importances = [(feature, round(importance, 3))
-                        for feature, importance in zip(features_names, importances)]
-    feature_importances = sorted(feature_importances, key=lambda x: x[1], reverse=True)
+    feature_importances = pd.Series(rf_model.feature_importances_,index=features_names).sort_values(ascending=False)
     print("r2 score is: {}".format(test_r2_score))
     print("square root of residuals is: {}".format(error))
     print("\nfeatures importance:")
-    [print('{:20}: {}'.format(*pair)) for pair in feature_importances]
-
+    print(feature_importances)
 
 def plot_predictions(test_actuals, test_pred, errors):
     assert len(test_pred) == len(test_actuals)
