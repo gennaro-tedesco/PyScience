@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from itertools import product
-
+from cyclic_encoder.ce import *
 
 def get_encoding(df):
 	assert isinstance(df, pd.DataFrame)
@@ -19,6 +19,10 @@ def get_actuals(df):
 def get_features(df):
 	assert isinstance(df, pd.DataFrame)
 	features = df.drop('actual', axis=1)
+	features = get_cyclicl_encoding(features, 'day', 31)
+	features = get_cyclicl_encoding(features, 'month', 12)
+	features = features.drop('month', axis=1)
+	features = features.drop('day', axis=1)
 	features_names = list(features)
 	return features, features_names
 
@@ -43,10 +47,10 @@ def train_model(train_vectors, train_labels):
 									n_estimators=n,
 									max_features=f)
 		est.fit(train_vectors, train_labels)
-		if est.oob_score > best_score:
+		if est.oob_score_ > best_score:
 			best_n_estimators = n
 			best_max_features = f
-			best_score, best_est = est.oob_score, est
+			best_score, best_est = est.oob_score_, est
 	print("best n_estimators={}, best_max_features={}"
 		.format(best_n_estimators, best_max_features))
 	return est

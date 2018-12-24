@@ -32,22 +32,24 @@ def print_summary(rf_model, features_names, test_actuals, test_pred):
     error = math.sqrt(mean_squared_error(test_actuals, test_pred))
     feature_importances = pd.Series(rf_model.feature_importances_,index=features_names).sort_values(ascending=False)
     print("r2 score is: {}".format(test_r2_score))
+    print("oob_score is: {}".format(rf_model.oob_score_))
     print("square root of residuals is: {}".format(error))
-    print("\nfeatures importance:\n", feature_importances)
+    print("\nfeatures importance")
+    print(feature_importances)
 
 def plot_predictions(test_actuals, test_pred, errors):
     assert len(test_pred) == len(test_actuals)
+    plt.rcParams["axes.edgecolor"] = "black"
+    plt.rcParams["axes.linewidth"] = 1
+    plt.rcParams["lines.linewidth"] = 0.5
+    plt.rcParams["lines.markersize"]=3
     plt.subplot(2, 1, 1)
     plt.errorbar(list(range(0, len(test_actuals))), test_actuals, 
                 yerr=np.sqrt(errors), 
                 fmt='bo-', 
-                ms = 4,
-                linewidth=0.5,
                 label='actual')
     plt.plot(list(range(0, len(test_pred))), test_pred, 
             'ro-', 
-            ms = 4,
-            linewidth=0.5,
             label='pred')
     plt.title('predictions and actuals')
     plt.xlabel('index of observations')
@@ -57,9 +59,7 @@ def plot_predictions(test_actuals, test_pred, errors):
     plt.subplot(2, 1, 2)
     plt.errorbar(test_actuals, test_pred, 
                 yerr=np.sqrt(errors), 
-                fmt='o', 
-                ms = 4,
-                linewidth=0.5)
+                fmt='o')
     plt.plot([min(test_actuals), max(test_actuals)], [min(test_actuals), max(test_actuals)], 'k--')
     plt.xlabel('actuals')
     plt.ylabel('predictions')
