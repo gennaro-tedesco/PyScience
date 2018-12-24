@@ -1,4 +1,4 @@
-# python-utils
+# PyScience
 A collection of algorithms and utilities for data science
 
 - time series and ARIMA models
