@@ -32,8 +32,8 @@ def get_split(features, actuals):
 def train_model(train_vectors, train_labels):
 	assert isinstance(train_vectors, pd.DataFrame)
 	parameter_grid = [
-		(100, 200, 500, 1000),
-		(0.3, 0.4, 0.5)
+		(100, 200, 500),
+		(0.3, 0.4)
 	]
 	best_score = float("-inf")
 

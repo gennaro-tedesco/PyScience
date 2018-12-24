@@ -1,8 +1,8 @@
 # python-utils
-A collection of practical utilities for data science
+A collection of algorithms and utilities for data science
 
-- MySQL connector
 - time series and ARIMA models
 - non-linear random forest regression
+- cyclic encoding of datetime variables
+- MySQL connector
 
-work in progress...
