@@ -6,3 +6,7 @@ A collection of algorithms and utilities for data science
 - cyclic encoding of datetime variables
 - MySQL connector
 
+
+![Alt text](gallery/regression_forest.png?raw=true "regression_forest")
+
+![Alt text](gallery/ARIMA.png?raw=true "ARIMA")
