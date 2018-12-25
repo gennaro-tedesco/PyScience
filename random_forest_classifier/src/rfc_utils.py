@@ -23,13 +23,13 @@ def get_features(df):
 
 
 def get_split(features, actuals):
-#	assert isinstance(features, pd.DataFrame)
-#	assert isinstance(actuals, pd.Series)
+	assert isinstance(features, pd.DataFrame)
+	assert isinstance(actuals, pd.Series)
 	return train_test_split(features, actuals, test_size=0.25, random_state=0)
 
 
 def train_model(train_vectors, train_labels):
-#	assert isinstance(train_vectors, pd.DataFrame)
+	assert isinstance(train_vectors, pd.DataFrame)
 	parameter_grid = [
 		(100, 200, 500, 1000),
 		(0.3, 0.4)
