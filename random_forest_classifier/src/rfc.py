@@ -2,11 +2,16 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
+import scikitplot as skplt
 from random_forest_classifier.src.rfc_utils import *
 from sklearn.metrics import classification_report, confusion_matrix
-from sklearn.datasets import load_digits
+from sklearn.metrics import precision_recall_fscore_support
+
 
 plt.style.use('seaborn-dark')
+plt.rcParams["axes.edgecolor"] = "black"
+plt.rcParams["axes.linewidth"] = 1
+
 
 def main(data_df):
     assert isinstance(data_df, pd.DataFrame)
@@ -22,7 +27,6 @@ def main(data_df):
     print("getting predictions...")
     test_pred = get_prediction(rf_model, train_features, test_features)
 
-    
     print("\nprinting summary:")
     print_summary(rf_model, features_names, test_actuals, test_pred)
     plot_predictions(test_actuals, test_pred)
@@ -34,15 +38,24 @@ def print_summary(rf_model, features_names, test_actuals, test_pred):
     print("\nfeatures importance")
     print(feature_importances)
 
-def plot_predictions(test_actuals, test_pred, normalise=False):
+
+def plot_predictions(test_actuals, test_pred):
     assert len(test_pred) == len(test_actuals)
-    cm = confusion_matrix(test_actuals, test_pred)
-    if normalise:
-        cm = cm.astype('float')/cm.sum(axis=1)[:, np.newaxis]
-        
-    sns.heatmap(cm, square=True, annot=True, cbar=True, cmap="Blues")
-    plt.xlabel('actuals')
-    plt.ylabel('predictions');
+    fig, (ax1, ax2) = plt.subplots(1,2)   
+    sns.heatmap(precision_recall_fscore_support(test_actuals, test_pred)[:-1],
+                annot=True, 
+                cbar=False, 
+                xticklabels=list(np.unique(test_actuals)), 
+                yticklabels=['recall', 'precision', 'f1-score'],
+                ax=ax1,
+                cmap='Blues')
+    ax1.set_title('classification report') 
+
+    skplt.metrics.plot_confusion_matrix(test_actuals, test_pred, 
+                                        normalize=False, 
+                                        ax=ax2)
+
+    plt.tight_layout()
     plt.show()
 
 

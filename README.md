@@ -8,6 +8,8 @@ A collection of algorithms and utilities for data science
 
 #
 #
-![Alt text](gallery/regression_forest.png?raw=true "regression_forest")
+![Alt text](gallery/regression_forest.png?raw=true  "regression_forest")
 
 ![Alt text](gallery/ARIMA.png?raw=true "ARIMA")
+
+![Alt text](gallery/cm.png?raw=true "cm")
