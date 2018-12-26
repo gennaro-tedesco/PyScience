@@ -5,18 +5,22 @@ from random_forest_classifier.src.rfc_utils import *
 from random_forest_classifier.src.rfc import plot_predictions
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.metrics import precision_recall_fscore_support
+from sklearn.preprocessing import StandardScaler
+
 
 def main(data_df):
     actuals = get_actuals(data_df)
     encoded_df = get_encoding(data_df)
     feat_vectors, features_names = get_features(encoded_df) 
 
+    scaler = StandardScaler()
+    feat_vectors = pd.DataFrame(scaler.fit_transform(feat_vectors))
+
     train_features, test_features, train_actuals, test_actuals = get_split(feat_vectors, actuals)
 
     print("training model...")
-    logreg_model = LogisticRegression(random_state=0, 
-                            solver='lbfgs',
-                            multi_class='multinomial')
+    logreg_model = LogisticRegression(solver='lbfgs',
+                                    multi_class='multinomial')
     logreg_model.fit(train_features, train_actuals)
 
     print("getting predictions...")

@@ -33,10 +33,10 @@ def main(data_df):
 
 
 def print_summary(rf_model, features_names, test_actuals, test_pred):
-    feature_importances = pd.Series(rf_model.feature_importances_,index=features_names).sort_values(ascending=False)
-    print(classification_report(test_pred, test_actuals))
+    feature_importances = pd.Series(rf_model.feature_importances_,index=features_names).sort_values(ascending=False)    
     print("\nfeatures importance")
     print(feature_importances)
+    print(classification_report(test_pred, test_actuals))
 
 
 def plot_predictions(test_actuals, test_pred):
