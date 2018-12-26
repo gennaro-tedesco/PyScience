@@ -60,6 +60,6 @@ def plot_predictions(test_actuals, test_pred):
 
 
 if __name__ == "__main__":
-    file_name = "random_forest_classifier/files/digits.csv"
+    file_name = "random_forest_classifier/files/titanic.csv"
     data = pd.read_csv(file_name)
     main(data)
