@@ -51,5 +51,5 @@ def train_model(train_vectors, train_actuals):
 	return est
 
 
-def get_prediction(model, train_features, test_features):
+def get_prediction(model, test_features):
 	return pd.Series(model.predict(test_features))

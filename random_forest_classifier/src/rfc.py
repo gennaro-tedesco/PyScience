@@ -25,7 +25,7 @@ def main(data_df):
     rf_model = train_model(train_features, train_actuals)
     
     print("getting predictions...")
-    test_pred = get_prediction(rf_model, train_features, test_features)
+    test_pred = get_prediction(rf_model, test_features)
 
     print("\nprinting summary:")
     print_summary(rf_model, features_names, test_actuals, test_pred)
@@ -52,7 +52,7 @@ def plot_predictions(test_actuals, test_pred):
     ax1.set_title('classification report') 
 
     skplt.metrics.plot_confusion_matrix(test_actuals, test_pred, 
-                                        normalize=False, 
+                                        normalize=True, 
                                         ax=ax2)
 
     plt.tight_layout()
@@ -60,6 +60,6 @@ def plot_predictions(test_actuals, test_pred):
 
 
 if __name__ == "__main__":
-    file_name = "random_forest_classifier/files/titanic.csv"
+    file_name = "random_forest_classifier/files/breast_cancer.csv"
     data = pd.read_csv(file_name)
     main(data)
