@@ -28,8 +28,8 @@ def get_split(features, actuals):
 	return train_test_split(features, actuals, test_size=0.25, random_state=0)
 
 
-def train_model(train_vectors, train_actuals):
-	assert isinstance(train_vectors, pd.DataFrame)
+def train_model(train_features, train_actuals):
+	assert isinstance(train_features, pd.DataFrame)
 	parameter_grid = [
 		(100, 200, 500, 1000),
 		(0.3, 0.4)
@@ -41,7 +41,7 @@ def train_model(train_vectors, train_actuals):
 		est = RandomForestClassifier(oob_score=True,
 									n_estimators=n,
 									max_features=f)
-		est.fit(train_vectors, train_actuals)
+		est.fit(train_features, train_actuals)
 		if est.oob_score_ > best_score:
 			best_n_estimators = n
 			best_max_features = f
