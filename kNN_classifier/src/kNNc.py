@@ -30,7 +30,7 @@ def main(data_df):
 
     print("\nprinting summary:")
     print(classification_report(test_pred, test_actuals))
-    #plot_predictions(test_actuals, test_pred)
+    plot_predictions(test_actuals, test_pred)
 
 
 if __name__ == "__main__":

@@ -36,7 +36,6 @@ def print_summary(rf_model, features_names, test_actuals, test_pred):
     error = math.sqrt(mean_squared_error(test_actuals, test_pred))
     feature_importances = pd.Series(rf_model.feature_importances_,index=features_names).sort_values(ascending=False)
     print("r2 score is: {}".format(test_r2_score))
-    print("oob_score is: {}".format(rf_model.oob_score_))
     print("square root of residuals is: {}".format(error))
     print("\nfeatures importance")
     print(feature_importances)

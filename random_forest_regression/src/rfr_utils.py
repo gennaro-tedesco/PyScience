@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from itertools import product
 from cyclic_encoder.ce import *
+from sklearn.model_selection import GridSearchCV
 
 def get_encoding(df):
 	assert isinstance(df, pd.DataFrame)
@@ -33,27 +34,20 @@ def get_split(features, actuals):
 	return train_test_split(features, actuals, test_size=0.25)
 
 
-def train_model(train_vectors, train_labels):
-	assert isinstance(train_vectors, pd.DataFrame)
-	parameter_grid = [
-		(100, 200, 500),
-		(0.3, 0.4)
-	]
-	best_score = float("-inf")
+def train_model(train_features, train_actuals):
+	assert isinstance(train_features, pd.DataFrame)
+	
+	estimator = RandomForestRegressor()
+	param_grid = { 
+			"n_estimators"      : [100, 200, 500, 1000],
+			"max_features"      : ["auto", "sqrt", "log2"]
+			}
 
-	for n, f in product(*parameter_grid):
-		print("training on n_estimators={} and max_features={}".format(n, f))
-		est = RandomForestRegressor(oob_score=True,
-									n_estimators=n,
-									max_features=f)
-		est.fit(train_vectors, train_labels)
-		if est.oob_score_ > best_score:
-			best_n_estimators = n
-			best_max_features = f
-			best_score, best_est = est.oob_score_, est
-	print("best n_estimators={}, best_max_features={}"
-		.format(best_n_estimators, best_max_features))
-	return est
+	grid_model = GridSearchCV(estimator, param_grid, n_jobs=-1, cv=5)
+	grid_model.fit(train_features, train_actuals)
+	print("best parameters are: {}".format(grid_model.best_score_))
+	print("best accuracy score is: {}".format(grid_model.best_estimator_))
+	return grid_model.best_estimator_
 
 
 def get_prediction(model, train_features, test_features):
