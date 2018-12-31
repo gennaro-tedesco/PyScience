@@ -28,7 +28,7 @@ def logreg_main(data_df):
 
 	train_features, test_features, train_actuals, test_actuals = get_split(feat_vectors, actuals)
 
-	print("training kNN classifier...")
+	print("training logistic regression classifier...")
 	estimator = LogisticRegression()
 	kNN_model = train_logreg_model(estimator, train_features, train_actuals)
 	test_pred = pd.Series(kNN_model.predict(test_features))
@@ -38,6 +38,6 @@ def logreg_main(data_df):
 
 
 if __name__ == "__main__":    
-    file_name = "files/breast_cancer.csv"
+    file_name = "files/iris.csv"
     data_df = pd.read_csv(file_name)
     logreg_main(data_df)

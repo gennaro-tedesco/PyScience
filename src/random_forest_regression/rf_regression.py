@@ -1,9 +1,10 @@
 import pandas as pd 
 import numpy as np
+import forestci as fci
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV
 from src.utils import *
-import forestci as fci
+
 
 def train_rfr_model(estimator, train_features, train_actuals):
 	assert isinstance(train_features, pd.DataFrame)
@@ -33,10 +34,10 @@ def rfr_main(data_df):
     error_pred = fci.random_forest_error(rfr_model, train_features, test_features)
     test_pred = pd.Series(rfr_model.predict(test_features))
 
-    print_regressor_summary(rfr_model, features_names, test_actuals, test_pred)
+    print_rfr_summary(rfr_model, features_names, test_actuals, test_pred)
     plot_regressor_predictions(test_actuals, test_pred, error_pred)
 
 if __name__ == "__main__":
-    file_name = "files/temperatures.csv"
+    file_name = "files/housing.csv"
     data = pd.read_csv(file_name)
     rfr_main(data)

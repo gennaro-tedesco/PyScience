@@ -1,4 +1,4 @@
-from time_series.src.ts_utils import *
+from src.time_series.ts_utils import *
 
 def main(input_file):
     ts = read_ts(input_file)

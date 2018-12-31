@@ -1,4 +1,4 @@
-year,month,day,week,temp_2,temp_1,average,actual,random
+year,month,day,week,temp_2,temp_1,average,actuals,random
 2016,1,1,Fri,45,45,45.6,45,29
 2016,1,2,Sat,44,45,45.7,44,61
 2016,1,3,Sun,45,44,45.8,41,56
