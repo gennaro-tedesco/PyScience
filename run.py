@@ -20,7 +20,7 @@ fun_map = {
 
 if __name__ == "__main__":
     file_name = "files/housing.csv"
-    method = "linreg"
+    method = "kNN_regression"
 
     print('-'*shutil.get_terminal_size().columns)
     print("executing {} on file '{}'".format(method, file_name).center(columns))

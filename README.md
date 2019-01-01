@@ -23,3 +23,9 @@ For regression problems we provide
 
 ![Alt text](gallery/ARIMA.png?raw=true "ARIMA")
 
+## How to use it
+The code is written for python3.X only and the data must be in `pandas DataFrame` format.
+
+The response variable column name must be `"actuals"` in the data file, whereas there is no restriction on the types and names for the predictors.
+
+A `run.py` is provided: simply provide the name of the algorithm you want to run and the path to the data file you want to run it on. 
