@@ -36,8 +36,3 @@ def rfc_main(data_df):
 
     print_classifier_summary(rfc_model, features_names, test_actuals, test_pred)
     plot_classifier_predictions(test_actuals, test_pred)
-
-if __name__ == "__main__":
-    file_name = "files/breast_cancer.csv"
-    data = pd.read_csv(file_name)
-    rfc_main(data)

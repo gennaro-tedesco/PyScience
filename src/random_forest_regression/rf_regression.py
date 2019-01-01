@@ -36,8 +36,3 @@ def rfr_main(data_df):
 
     print_rfr_summary(rfr_model, features_names, test_actuals, test_pred)
     plot_regressor_predictions(test_actuals, test_pred, error_pred)
-
-if __name__ == "__main__":
-    file_name = "files/housing.csv"
-    data = pd.read_csv(file_name)
-    rfr_main(data)

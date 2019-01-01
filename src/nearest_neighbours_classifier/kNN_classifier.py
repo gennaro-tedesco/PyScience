@@ -35,8 +35,3 @@ def kNN_classifier_main(data_df):
 
 	print(classification_report(test_pred, test_actuals))
 	plot_classifier_predictions(test_actuals, test_pred)
-
-if __name__ == "__main__":
-	file_name = "files/titanic.csv"
-	data = pd.read_csv(file_name)
-	kNN_classifier_main(data)

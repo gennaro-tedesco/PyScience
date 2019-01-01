@@ -37,8 +37,3 @@ def kNN_regression_main(data_df):
 	error = math.sqrt(mean_squared_error(test_actuals, test_pred))
 	print("r2 score is: {}".format(test_r2_score))
 	print("square root of residuals is: {}".format(error))
-
-if __name__ == "__main__":
-	file_name = "files/temperatures.csv"
-	data = pd.read_csv(file_name)
-	kNN_regression_main(data)
