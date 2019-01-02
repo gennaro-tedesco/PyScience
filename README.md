@@ -1,5 +1,5 @@
 # PyScience
-PyScience is a library that is aimed to help data scientists find the model that best fits the data. Although most of the features are already provided by the [scikit-learn package](https://scikit-learn.org/stable/) , we introduce a more complete and compact set of utilities that include basic optimisation (achieved by means of [GridSearchCV](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html)), scaling and introduction of dummy variables when needed. A basic summary with additional basic plots of the results are included.
+PyScience is a library that is aimed to help data scientists find the model that best fits the data. Although most of the features are already provided by the [scikit-learn package](https://scikit-learn.org/stable/), we introduce a more complete and compact set of utilities that include basic optimisation (achieved by means of [GridSearchCV](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html)), scaling and introduction of dummy variables when needed. A basic summary with additional basic plots of the results is also included.
 
 ## Table of Contents  
 - [Classification](#classification)
