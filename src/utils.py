@@ -22,6 +22,7 @@ def get_regressor_encoding(df):
 
 def get_regressor_actuals(df):
 	assert isinstance(df, pd.DataFrame)
+	assert 'actuals' in list(df), "actuals column not present in the data set"
 	return df['actuals']
 
 def get_classifier_encoding(df):
@@ -31,6 +32,7 @@ def get_classifier_encoding(df):
 
 def get_classifier_actuals(df):
 	assert isinstance(df, pd.DataFrame)
+	assert 'actuals' in list(df), "actuals column not present in the data set"
 	return df['actuals']
 
 def get_regressor_features(df):
@@ -66,7 +68,7 @@ def print_rfr_summary(rf_model, features_names, test_actuals, test_pred):
     test_r2_score = r2_score(test_actuals, test_pred)
     error = math.sqrt(mean_squared_error(test_actuals, test_pred))
     feature_importances = pd.Series(rf_model.feature_importances_, index=features_names).sort_values(ascending=False)
-    print("r2 score is: {}".format(test_r2_score))
+    print("r2 score on test set is: {}".format(test_r2_score))
     print("square root of residuals is: {}".format(error))
     print("\nfeatures importance")
     print(feature_importances)

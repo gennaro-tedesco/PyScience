@@ -13,7 +13,7 @@ def train_kNN_model(estimator, train_features, train_actuals):
 		'algorithm': ['ball_tree', 'kd_tree', 'brute']
 		}  
 
-	knn_gscv = GridSearchCV(estimator, parameter_grid, cv=5)
+	knn_gscv = GridSearchCV(estimator, parameter_grid, cv=10, scoring='f1_weighted')
 	knn_gscv.fit(train_features, train_actuals)
 	
 	print("best parameters are: {}".format(knn_gscv.best_estimator_))

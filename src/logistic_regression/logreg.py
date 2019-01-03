@@ -13,7 +13,7 @@ def train_logreg_model(estimator, train_features, train_actuals):
 		'multi_class': ['ovr', 'multinomial']
 		}  
 
-	logreg_gscv = GridSearchCV(estimator, parameter_grid, cv=5)
+	logreg_gscv = GridSearchCV(estimator, parameter_grid, cv=10, scoring='f1_weighted')
 	logreg_gscv.fit(train_features, train_actuals)
 	
 	print("best parameters are: {}".format(logreg_gscv.best_estimator_))

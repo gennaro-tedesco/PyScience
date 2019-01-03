@@ -15,7 +15,7 @@ def train_rfc_model(estimator, train_features, train_actuals):
             "oob_score": [True, False]
 			}
 
-	rfc_gscv = GridSearchCV(estimator, param_grid, n_jobs=-1, cv=5)
+	rfc_gscv = GridSearchCV(estimator, param_grid, n_jobs=-1, cv=10, scoring='f1_weighted')
 	rfc_gscv.fit(train_features, train_actuals)
 	print("best parameters are: {}".format(rfc_gscv.best_estimator_))
 	print("best accuracy score is: {}".format(rfc_gscv.best_score_))

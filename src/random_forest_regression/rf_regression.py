@@ -14,10 +14,10 @@ def train_rfr_model(estimator, train_features, train_actuals):
 			"max_features"      : ["auto", "sqrt", "log2"]
 			}
 
-	rfr_gscv = GridSearchCV(estimator, param_grid, n_jobs=-1, cv=5)
+	rfr_gscv = GridSearchCV(estimator, param_grid, n_jobs=-1, cv=10, scoring='r2')
 	rfr_gscv.fit(train_features, train_actuals)
 	print("best parameters are: {}".format(rfr_gscv.best_estimator_))
-	print("best accuracy score is: {}".format(rfr_gscv.best_score_))
+	print("best r2 training score is: {}".format(rfr_gscv.best_score_))
 	return rfr_gscv.best_estimator_
 
 def rfr_main(data_df):

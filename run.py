@@ -1,5 +1,7 @@
 import shutil
 import pandas as pd
+import logging
+logging.captureWarnings(True)
 from src.linear_regression.linreg import linreg_main
 from src.logistic_regression.logreg import logreg_main 
 from src.nearest_neighbours_classifier.kNN_classifier import kNN_classifier_main
@@ -18,10 +20,13 @@ fun_map = {
     "random_forest_regression": rfr_main
 }
 
-if __name__ == "__main__":
-    file_name = "files/housing.csv"
-    method = "kNN_regression"
+### -------------------------------------------------- ###
+### change the below variables according to your needs ###
+### -------------------------------------------------- ###
+file_name = "files/housing.csv" 
+method = "linreg"
 
+if __name__ == "__main__":
     print('-'*shutil.get_terminal_size().columns)
     print("executing {} on file '{}'".format(method, file_name).center(columns))
     print('-'*shutil.get_terminal_size().columns)
