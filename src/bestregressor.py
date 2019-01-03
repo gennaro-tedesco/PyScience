@@ -6,7 +6,7 @@ from sklearn.model_selection import GridSearchCV
 class BestRegressor:
     """
     class that fits a list of models to the training data to determine
-    the model that of best fit, where best fit is defined against any scoring_metric
+    the model of best fit, where best fit is defined against any scoring_metric
     allowed by the scikit-learn API.
 
     models: a dictionary of {modelName: modelInstance()}
