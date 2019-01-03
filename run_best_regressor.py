@@ -2,10 +2,11 @@ import pandas as pd
 import logging
 logging.captureWarnings(True)
 from src.utils import *
-from src.bestclassifier import BestClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.linear_model import LogisticRegression
+from src.bestregressor import BestRegressor
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import LinearRegression
+from sklearn.neighbors import KNeighborsRegressor
+
 
 ### -------------------------------------------------- ###
 ### change the below variables according to your needs ###
@@ -13,42 +14,41 @@ from sklearn.linear_model import LogisticRegression
 
 # the models that you want to compare
 models = {
-	'RandomForestClassifier': RandomForestClassifier(),
-	'KNeighboursClassifier': KNeighborsClassifier(),
-	'LogisticRegression': LogisticRegression()
+	'RandomForestRegressor': RandomForestRegressor(),
+	'LinearRegression': LinearRegression(),
+	'KNeighboursRegressor': KNeighborsRegressor()
 }
 
 # the optimisation parameters for each of the above models
 params = {
-	'RandomForestClassifier':{ 
+	'RandomForestRegressor':{ 
 			"n_estimators"      : [100, 200, 500, 1000],
 			"max_features"      : ["auto", "sqrt", "log2"],
 			"bootstrap": [True],
-            "criterion": ['gini', 'entropy'],
             "oob_score": [True, False]
 			},
-	'KNeighboursClassifier': {
+	'KNeighboursRegressor': {
 		'n_neighbors': np.arange(3, 15),
 		'weights': ['uniform', 'distance'],
 		'algorithm': ['ball_tree', 'kd_tree', 'brute']
 		},
-	'LogisticRegression': {
-		'solver': ['newton-cg', 'sag', 'lbfgs'],
-		'multi_class': ['ovr', 'multinomial']
+	'LinearRegression': {
+		'fit_intercept': [True, False],
+		'normalize':  [True, False]
 		}  
 }
 
 # the data source
-file_name = "files/breast_cancer.csv"
+file_name = "files/temperatures.csv"
 
 if __name__ == "__main__":
 	data_df = pd.read_csv(file_name)
-	actuals = get_classifier_actuals(data_df)
-	encoded_df = get_classifier_encoding(data_df)
-	feat_vectors, features_names = get_classifier_features(encoded_df) 
+	actuals = get_regressor_actuals(data_df)
+	encoded_df = get_regressor_encoding(data_df)
+	feat_vectors, features_names = get_regressor_features(encoded_df) 
 
 	train_features, test_features, train_actuals, test_actuals = get_split(feat_vectors, actuals)
 
-	bc = BestClassifier(models, params, 'f1_weighted')
+	bc = BestRegressor(models, params, 'r2')
 	bc.fit(train_actuals, train_features)
 	bc.evaluation()

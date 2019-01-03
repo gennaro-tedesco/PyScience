@@ -10,8 +10,8 @@ PyScience is a library that is aimed to help data scientists find the model that
 
 
 ## Why shall I use it?
-PyScience is *not* a substitute of any of the many `scikit-learn` implementations and algorithms (and links therein), which we still address the users to. On the other hand, though, we provide a ready-to-use out of the box collection of modules that 
-- normalise the sources making them suitable for classification/regression by encoding, scaling and normalising the data 
+PyScience is *not* a substitute of any of the many `scikit-learn` implementations, algorithms and links therein, which we still address the users to. On the other hand, though, we provide a ready-to-use out of the box collection of modules that 
+- clean and prepare the sources making them suitable for classification/regression by encoding, scaling and normalising the data 
 - provide basic optimisation of the algorithms by means of cross-validation and parameters search
 - offer pretty visualisations of the final results
 
