@@ -23,7 +23,7 @@ fun_map = {
 ### -------------------------------------------------- ###
 ### change the below variables according to your needs ###
 ### -------------------------------------------------- ###
-file_name = "files/housing.csv" 
+file_name = "datasets/housing.csv" 
 method = "linreg"
 
 if __name__ == "__main__":

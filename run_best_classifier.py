@@ -39,7 +39,7 @@ params = {
 }
 
 # the data source
-file_name = "files/breast_cancer.csv"
+file_name = "datasets/breast_cancer.csv"
 
 if __name__ == "__main__":
 	data_df = pd.read_csv(file_name)

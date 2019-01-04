@@ -39,7 +39,7 @@ params = {
 }
 
 # the data source
-file_name = "files/temperatures.csv"
+file_name = "datasets/temperatures.csv"
 
 if __name__ == "__main__":
 	data_df = pd.read_csv(file_name)

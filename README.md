@@ -1,5 +1,5 @@
-# PyScience
-PyScience is a library that is aimed to help data scientists find the model that best fits the data. Although most of the features are already provided by the [scikit-learn package](https://scikit-learn.org/stable/), we introduce a more complete and compact set of utilities that include basic optimisation (achieved by means of [GridSearchCV](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html)), scaling and introduction of dummy variables when needed. A basic summary with additional basic plots of the results is also included.
+# pyscience
+pyscience is a library that is aimed to help data scientists find the model that best fits the data. Although most of the features are already provided by the [scikit-learn package](https://scikit-learn.org/stable/), we introduce a more complete and compact set of utilities that include basic optimisation (achieved by means of [GridSearchCV](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html)), scaling and introduction of dummy variables when needed. A basic summary with additional basic plots of the results is also included.
 
 ## Table of Contents  
 - [Why shall I use it?](#Why-shall-I-use-it?)
@@ -19,7 +19,7 @@ Moreover, we provide the classes `BestClassifier` and `BestRegressor` that run t
 
 
 ## How to use it
-The code is written for python3.X only and the data must be in `pandas DataFrame` format. Example files are included in the `files` folder.
+The code is written for python3.X only and the data must be in `pandas DataFrame` format. Example files are included in the `datasets` folder.
 
 The column holding the response variable must be named `'actuals'`, whereas there is no restriction on the types and names for the predictors.
 
