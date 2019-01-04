@@ -28,8 +28,7 @@ class BestRegressor:
 
     def fit(self, train_features, train_actuals):
         """
-        fits the list of models to the train data, thereby obtaining in each 
-        case an evaluation score after GridSearchCV cross-validation
+        fits the list of models to the training data, thereby obtaining in each case an evaluation score after GridSearchCV cross-validation
         """
         for name in self.models.keys():
             print('-'*shutil.get_terminal_size().columns)
