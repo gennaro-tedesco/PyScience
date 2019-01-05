@@ -10,7 +10,7 @@ pyscience is a library that is aimed to help data scientists find the model that
 
 
 ## Why shall I use it?
-PyScience is *not* a substitute of any of the many `scikit-learn` implementations, algorithms and links therein, which we still address the users to. On the other hand, though, we provide a ready-to-use out of the box collection of modules that 
+PyScience is *not* a substitute of any of the many `scikit-learn` implementations, algorithms and links therein, which we still address the users to. On the other hand, though, we provide a ready-to-use out of the box collection of modules that: 
 - clean and prepare the sources making them suitable for classification/regression by encoding, scaling and normalising the data 
 - provide basic optimisation of the algorithms by means of cross-validation and parameters search
 - offer pretty visualisations of the final results
@@ -63,6 +63,7 @@ best parameters are: LogisticRegression(C=1.0, class_weight=None, dual=False, fi
 ## Classification
 For classification problems we provide
 - random forest classification
+- support vectors classification
 - logistic regression
 - nearest neighbours classification
 
@@ -95,6 +96,7 @@ and a plotted summary
 ## Regression
 For regression problems we provide
 - random forest regression
+- support vectors regression
 - linear regression
 - nearest neighbours regression
 

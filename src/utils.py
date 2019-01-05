@@ -58,66 +58,65 @@ def get_split(features, actuals):
 ## ---------------
 ## print summaries
 ## ---------------
-def print_classifier_summary(rf_model, features_names, test_actuals, test_pred):
-    feature_importances = pd.Series(rf_model.feature_importances_, index=features_names).sort_values(ascending=False)    
-    print("\nfeatures importance")
-    print(feature_importances)
-    print(classification_report(test_pred, test_actuals))
+def print_classifier_summary(classifier_model, features_names, test_actuals, test_pred):
+	feature_importances = pd.Series(classifier_model.feature_importances_, index=features_names).sort_values(ascending=False)    
+	print("\nfeatures importance")
+	print(feature_importances)
+	print(classification_report(test_pred, test_actuals))
 
-def print_rfr_summary(rf_model, features_names, test_actuals, test_pred):
-    test_r2_score = r2_score(test_actuals, test_pred)
-    error = math.sqrt(mean_squared_error(test_actuals, test_pred))
-    feature_importances = pd.Series(rf_model.feature_importances_, index=features_names).sort_values(ascending=False)
-    print("r2 score on test set is: {}".format(test_r2_score))
-    print("square root of residuals is: {}".format(error))
-    print("\nfeatures importance")
-    print(feature_importances)
+def print_regression_summary(test_actuals, test_pred):
+	test_r2_score = r2_score(test_actuals, test_pred)
+	error = math.sqrt(mean_squared_error(test_actuals, test_pred))	
+	print("\nr2 score on test set is: {}".format(test_r2_score))
+	print("square root of residuals is: {}".format(error))
 
+
+
+"""
+
+"""
 ## -----
 ## plots 
 ## -----
 def plot_classifier_predictions(test_actuals, test_pred):
-    assert len(test_pred) == len(test_actuals)
-    fig, (ax1, ax2) = plt.subplots(1,2)   
-    sns.heatmap(precision_recall_fscore_support(test_actuals, test_pred)[:-1],
+	assert len(test_pred) == len(test_actuals)
+	fig, (ax1, ax2) = plt.subplots(1,2)   
+	sns.heatmap(precision_recall_fscore_support(test_actuals, test_pred)[:-1],
 		annot=True, 
 		cbar=False, 
 		xticklabels=list(np.unique(test_actuals)), 
 		yticklabels=['recall', 'precision', 'f1-score'],
 		ax=ax1,
 		cmap='Blues')
-    ax1.set_title('classification report') 
+	ax1.set_title('classification report') 
 
-    skplt.metrics.plot_confusion_matrix(test_actuals, test_pred, 
+	skplt.metrics.plot_confusion_matrix(test_actuals, test_pred, 
 					normalize=True, 
 					ax=ax2)
 
-    plt.tight_layout()
-    plt.show()
+	plt.tight_layout()
+	plt.show()
 
 
-def plot_regressor_predictions(test_actuals, test_pred, errors):
-    assert len(test_pred) == len(test_actuals)
-    plt.subplot(2, 1, 1)
-    plt.errorbar(list(range(0, len(test_actuals))), test_actuals, 
-		yerr=np.sqrt(errors), 
-		fmt='bo-', 
+def plot_regressor_predictions(test_actuals, test_pred):
+	assert len(test_pred) == len(test_actuals)
+	plt.subplot(2, 1, 1)
+	plt.plot(list(range(0, len(test_actuals))), test_actuals, 
+		'bo-', 
 		label='actual')
-    plt.plot(list(range(0, len(test_pred))), test_pred, 
-	    'ro-', 
-	    label='pred')
-    plt.title('predictions and actuals')
-    plt.xlabel('index of observations')
-    plt.ylabel('predictions value')   
-    plt.legend(loc='best')
+	plt.plot(list(range(0, len(test_pred))), test_pred, 
+		'ro-', 
+		label='pred')
+	plt.title('predictions and actuals')
+	plt.xlabel('index of observations')
+	plt.ylabel('predictions value')   
+	plt.legend(loc='best')
 
-    plt.subplot(2, 1, 2)
-    plt.errorbar(test_actuals, test_pred, 
-		yerr=np.sqrt(errors), 
-		fmt='o')
-    plt.plot([min(test_actuals), max(test_actuals)], [min(test_actuals), max(test_actuals)], 'k--')
-    plt.xlabel('actuals')
-    plt.ylabel('predictions')
+	plt.subplot(2, 1, 2)
+	plt.plot(test_actuals, test_pred, 'bo')
+	plt.plot([min(test_actuals), max(test_actuals)], [min(test_actuals), max(test_actuals)], 'k--')
+	plt.xlabel('actuals')
+	plt.ylabel('predictions')
 
-    plt.tight_layout()
-    plt.show()
+	plt.tight_layout()
+	plt.show()

@@ -9,14 +9,15 @@ def train_SVR_model(estimator, train_features, train_actuals):
 	assert isinstance(estimator, SVR)	
 	parameter_grid = {
 		'kernel':['rbf', 'linear', 'sigmoid'],
-		'gamma': ['auto', 'scale']
+		'gamma': ['auto', 'scale'],
+		'epsilon': [0.05, 0.1, 0.15]
 		}  
 
 	svr_gscv = GridSearchCV(estimator, parameter_grid, cv=10, scoring='r2')
 	svr_gscv.fit(train_features, train_actuals)
 	
 	print("best parameters are: {}".format(svr_gscv.best_estimator_))
-	print("best r2 score is: {}".format(svr_gscv.best_score_))
+	print("best validation r2 score is: {}".format(svr_gscv.best_score_))
 	return svr_gscv.best_estimator_
 
 def sv_regression_main(data_df):
@@ -32,7 +33,5 @@ def sv_regression_main(data_df):
 	svr_model = train_SVR_model(estimator, train_features, train_actuals)
 	test_pred = pd.Series(svr_model.predict(test_features))
 
-	test_r2_score = r2_score(test_actuals, test_pred)
-	error = math.sqrt(mean_squared_error(test_actuals, test_pred))
-	print("r2 score is: {}".format(test_r2_score))
-	print("square root of residuals is: {}".format(error))
+	print_regression_summary(test_actuals, test_pred)
+	plot_regressor_predictions(test_actuals, test_pred)

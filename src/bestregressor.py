@@ -28,7 +28,8 @@ class BestRegressor:
 
     def fit(self, train_features, train_actuals):
         """
-        fits the list of models to the training data, thereby obtaining in each case an evaluation score after GridSearchCV cross-validation
+        fits the list of models to the training data, thereby obtaining in each 
+        case an evaluation score after GridSearchCV cross-validation
         """
         for name in self.models.keys():
             print('-'*shutil.get_terminal_size().columns)
@@ -39,6 +40,7 @@ class BestRegressor:
             gscv = GridSearchCV(estimator, est_params, cv=5, scoring=self.scoring_metric)
             gscv.fit(train_actuals, train_features)
             print("best parameters are: {}".format(gscv.best_estimator_))
+            print("best validation {} is: {}".format(self.scoring_metric, gscv.best_score_))
             self.single_classifier_best[name] = gscv
     
     def evaluation(self):

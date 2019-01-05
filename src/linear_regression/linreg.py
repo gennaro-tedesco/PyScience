@@ -19,7 +19,5 @@ def linreg_main(data_df):
 	linreg_model = estimator.fit(train_features, train_actuals)
 	test_pred = pd.Series(linreg_model.predict(test_features))
 
-	test_r2_score = r2_score(test_actuals, test_pred)
-	error = math.sqrt(mean_squared_error(test_actuals, test_pred))
-	print("r2 score is: {}".format(test_r2_score))
-	print("square root of residuals is: {}".format(error))
+	print_regression_summary(test_actuals, test_pred)
+	plot_regressor_predictions(test_actuals, test_pred)

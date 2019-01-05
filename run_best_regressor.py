@@ -39,13 +39,14 @@ params = {
 		'normalize':  [True, False]
 		},
 	'SupportVectorRegressor': {
-		'kernel':['rbf', 'linear', 'poly', 'sigmoid'],
-		'gamma': ['auto', 'scale']
+		'kernel':['rbf', 'linear', 'sigmoid'],
+		'gamma': ['auto', 'scale'],
+		'epsilon': [0.05, 0.1, 0.15]
 		}  
 }
 
 # the data source
-file_name = "datasets/diamonds.csv"
+file_name = "datasets/housing.csv"
 
 if __name__ == "__main__":
 	data_df = pd.read_csv(file_name)

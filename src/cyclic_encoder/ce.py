@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+## Encoding dates into cyclical features for machine learning
 
 test_df = pd.DataFrame({
     'dates': pd.date_range(
