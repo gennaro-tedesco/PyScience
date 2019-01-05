@@ -30,8 +30,8 @@ def logreg_main(data_df):
 
 	print("training logistic regression classifier...")
 	estimator = LogisticRegression()
-	kNN_model = train_logreg_model(estimator, train_features, train_actuals)
-	test_pred = pd.Series(kNN_model.predict(test_features))
+	logreg_model = train_logreg_model(estimator, train_features, train_actuals)
+	test_pred = pd.Series(logreg_model.predict(test_features))
 
 	print(classification_report(test_pred, test_actuals))
 	plot_classifier_predictions(test_actuals, test_pred)

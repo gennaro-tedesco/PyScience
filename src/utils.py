@@ -70,11 +70,6 @@ def print_regression_summary(test_actuals, test_pred):
 	print("\nr2 score on test set is: {}".format(test_r2_score))
 	print("square root of residuals is: {}".format(error))
 
-
-
-"""
-
-"""
 ## -----
 ## plots 
 ## -----
