@@ -6,6 +6,7 @@ from src.bestregressor import BestRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.neighbors import KNeighborsRegressor
+from sklearn.svm import SVR
 
 
 ### -------------------------------------------------- ###
@@ -16,7 +17,8 @@ from sklearn.neighbors import KNeighborsRegressor
 models = {
 	'RandomForestRegressor': RandomForestRegressor(),
 	'LinearRegression': LinearRegression(),
-	'KNeighboursRegressor': KNeighborsRegressor()
+	'KNeighboursRegressor': KNeighborsRegressor(),
+	'SupportVectorRegressor': SVR()
 }
 
 # the optimisation parameters for each of the above models
@@ -35,11 +37,15 @@ params = {
 	'LinearRegression': {
 		'fit_intercept': [True, False],
 		'normalize':  [True, False]
+		},
+	'SupportVectorRegressor': {
+		'kernel':['rbf', 'linear', 'poly', 'sigmoid'],
+		'gamma': ['auto', 'scale']
 		}  
 }
 
 # the data source
-file_name = "datasets/temperatures.csv"
+file_name = "datasets/diamonds.csv"
 
 if __name__ == "__main__":
 	data_df = pd.read_csv(file_name)

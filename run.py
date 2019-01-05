@@ -8,6 +8,9 @@ from src.nearest_neighbours_classifier.kNN_classifier import kNN_classifier_main
 from src.nearest_neighbours_regression.kNN_regression import kNN_regression_main 
 from src.random_forest_classifier.rf_classifier import rfc_main
 from src.random_forest_regression.rf_regression import rfr_main
+from src.support_vector_classifier.sv_classifier import sv_classifier_main
+from src.support_vector_regression.sv_regression import sv_regression_main
+
 
 columns = shutil.get_terminal_size().columns
 
@@ -17,14 +20,16 @@ fun_map = {
     "kNN_classifier": kNN_classifier_main,
     "kNN_regression": kNN_regression_main,
     "random_forest_classifier": rfc_main,
-    "random_forest_regression": rfr_main
+    "random_forest_regression": rfr_main,
+    "support_vector_classifier": sv_classifier_main,
+    "support_vector_regression": sv_regression_main
 }
 
 ### -------------------------------------------------- ###
 ### change the below variables according to your needs ###
 ### -------------------------------------------------- ###
-file_name = "datasets/housing.csv" 
-method = "linreg"
+file_name = "datasets/diamonds.csv" 
+method = "support_vector_regression"
 
 if __name__ == "__main__":
     print('-'*shutil.get_terminal_size().columns)

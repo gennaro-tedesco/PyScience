@@ -6,6 +6,8 @@ from src.bestclassifier import BestClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+
 
 ### -------------------------------------------------- ###
 ### change the below variables according to your needs ###
@@ -15,7 +17,8 @@ from sklearn.linear_model import LogisticRegression
 models = {
 	'RandomForestClassifier': RandomForestClassifier(),
 	'KNeighboursClassifier': KNeighborsClassifier(),
-	'LogisticRegression': LogisticRegression()
+	'LogisticRegression': LogisticRegression(),
+	'SupportVectorClassifier': SVC()
 }
 
 # the optimisation parameters for each of the above models
@@ -35,11 +38,15 @@ params = {
 	'LogisticRegression': {
 		'solver': ['newton-cg', 'sag', 'lbfgs'],
 		'multi_class': ['ovr', 'multinomial']
+		},
+	'SupportVectorClassifier': {
+		'kernel':['rbf', 'linear', 'poly', 'sigmoid'],
+		'gamma': ['auto', 'scale']
 		}  
 }
 
 # the data source
-file_name = "datasets/breast_cancer.csv"
+file_name = "datasets/mpgcars.csv"
 
 if __name__ == "__main__":
 	data_df = pd.read_csv(file_name)
