@@ -13,6 +13,7 @@ def linreg_main(data_df):
 	feat_vectors, features_names = get_regressor_features(encoded_df) 
 
 	train_features, test_features, train_actuals, test_actuals = get_split(feat_vectors, actuals)
+	train_features, test_features = get_scaling(train_features, test_features)
 
 	print("training linear regression...")
 	estimator = LinearRegression()

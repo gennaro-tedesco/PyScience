@@ -28,8 +28,8 @@ fun_map = {
 ### -------------------------------------------------- ###
 ### change the below variables according to your needs ###
 ### -------------------------------------------------- ###
-file_name = "datasets/classification/mpgcars.csv" 
-method = "kNN_classifier"
+file_name = "datasets/regression/mpgcars.csv" 
+method = "random_forest_regression"
 
 if __name__ == "__main__":
     print('-'*shutil.get_terminal_size().columns)

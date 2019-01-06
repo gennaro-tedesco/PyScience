@@ -47,7 +47,7 @@ params = {
 }
 
 # the data source
-file_name = "datasets/regression/diamonds.csv" 
+file_name = "datasets/regression/mpgcars.csv" 
 
 if __name__ == "__main__":
 	data_df = pd.read_csv(file_name)
