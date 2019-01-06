@@ -1,14 +1,13 @@
 import pandas as pd
 import logging
 logging.captureWarnings(True)
-from src.utils import *
+import numpy as np
+from src.utils import get_regressor_actuals, get_regressor_encoding, get_regressor_features, get_split
 from src.bestregressor import BestRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.svm import SVR
-from src.utils import *
-from src.support_vector_regression.sv_regression import *
 
 ### -------------------------------------------------- ###
 ### change the below variables according to your needs ###
@@ -17,7 +16,7 @@ from src.support_vector_regression.sv_regression import *
 # the models that you want to compare
 models = {
 	'SupportVectorRegressor': SVR(),
-	#'RandomForestRegressor': RandomForestRegressor(),
+	'RandomForestRegressor': RandomForestRegressor(),
 	'LinearRegression': LinearRegression(),
 	'KNeighboursRegressor': KNeighborsRegressor()
 }
@@ -47,7 +46,7 @@ params = {
 }
 
 # the data source
-file_name = "datasets/regression/mpgcars.csv" 
+file_name = "datasets/regression/diamonds.csv" 
 
 if __name__ == "__main__":
 	data_df = pd.read_csv(file_name)
