@@ -3,6 +3,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import GridSearchCV
 from sklearn.svm import SVR
 from src.utils import * 
+from sklearn.preprocessing import Normalizer
+
 
 def train_SVR_model(estimator, train_features, train_actuals):
 	assert isinstance(train_features, pd.DataFrame)
@@ -27,11 +29,14 @@ def sv_regression_main(data_df):
 	feat_vectors, features_names = get_regressor_features(encoded_df) 
 
 	train_features, test_features, train_actuals, test_actuals = get_split(feat_vectors, actuals)
-
+	train_features, test_features = get_scaling(train_features, test_features)
+	scaler = StandardScaler()
+	train_actuals = scaler.fit_transform(train_actuals.values.reshape(-1, 1))
+	
 	print("training SV regression...")
 	estimator = SVR()
 	svr_model = train_SVR_model(estimator, train_features, train_actuals)
-	test_pred = pd.Series(svr_model.predict(test_features))
+	test_pred = pd.Series(scaler.inverse_transform(pd.Series(svr_model.predict(test_features))))
 
 	print_regression_summary(test_actuals, test_pred)
 	plot_regressor_predictions(test_actuals, test_pred)

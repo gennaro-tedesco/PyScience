@@ -8,7 +8,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix, precision_recall_fscore_support
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import r2_score
-from src.cyclic_encoder.ce import * 
+from src.cyclic_encoder.ce import get_cyclicl_encoding
+from sklearn.preprocessing import StandardScaler
+
 
 plt.style.use('seaborn-dark')
 plt.rcParams["axes.edgecolor"] = "black"
@@ -55,6 +57,19 @@ def get_split(features, actuals):
 	assert isinstance(actuals, pd.Series)
 	return train_test_split(features, actuals, test_size=0.25)
 
+def get_scaling(train_features, test_features):
+	print("scaling numerical features...")
+	assert isinstance(train_features, pd.DataFrame)
+	assert isinstance(test_features, pd.DataFrame)
+	columns_to_scale = train_features.select_dtypes(include=['float64', 'int']).columns
+
+	scaler = StandardScaler()
+	scaler.fit(train_features[columns_to_scale])
+	train_features[columns_to_scale] = scaler.transform(train_features[columns_to_scale])
+	test_features[columns_to_scale] = scaler.transform(test_features[columns_to_scale])
+	return train_features, test_features
+
+
 ## ---------------
 ## print summaries
 ## ---------------
@@ -73,6 +88,19 @@ def print_regression_summary(test_actuals, test_pred):
 ## -----
 ## plots 
 ## -----
+def plot_scaling(train_features, scaled_train_features):
+	fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(6, 5))
+	columns_to_scale = train_features.select_dtypes(include=['float64', 'int'])
+
+	ax1.set_title('Before Scaling')
+	for num_variable in columns_to_scale:
+		sns.kdeplot(train_features[num_variable], ax=ax1)
+
+	ax2.set_title('After Standard Scaler')
+	for num_variable in columns_to_scale:
+		sns.kdeplot(scaled_train_features[num_variable], ax=ax2)
+	plt.show()
+
 def plot_classifier_predictions(test_actuals, test_pred):
 	assert len(test_pred) == len(test_actuals)
 	fig, (ax1, ax2) = plt.subplots(1,2)   
@@ -91,7 +119,6 @@ def plot_classifier_predictions(test_actuals, test_pred):
 
 	plt.tight_layout()
 	plt.show()
-
 
 def plot_regressor_predictions(test_actuals, test_pred):
 	assert len(test_pred) == len(test_actuals)

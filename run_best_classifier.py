@@ -2,7 +2,7 @@ import pandas as pd
 import logging
 logging.captureWarnings(True)
 import numpy as np 
-from src.utils import get_classifier_actuals, get_classifier_encoding, get_classifier_features, get_split
+from src.utils import get_classifier_actuals, get_classifier_encoding, get_classifier_features, get_split, get_scaling
 from src.bestclassifier import BestClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
@@ -56,6 +56,7 @@ if __name__ == "__main__":
 	feat_vectors, features_names = get_classifier_features(encoded_df) 
 
 	train_features, test_features, train_actuals, test_actuals = get_split(feat_vectors, actuals)
+	train_features, test_features = get_scaling(train_features, test_features)
 
 	bc = BestClassifier(models, params, 'f1_weighted')
 	bc.fit(train_features, train_actuals)
