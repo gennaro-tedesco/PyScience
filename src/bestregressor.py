@@ -33,12 +33,12 @@ class BestRegressor:
         """
         for name in self.models.keys():
             print('-'*shutil.get_terminal_size().columns)
-            print("evaluating {}".format(name).center(columns))
+            print("training {}".format(name).center(columns))
             print('-'*shutil.get_terminal_size().columns)
             estimator = self.models[name]
             est_params = self.params[name]
             gscv = GridSearchCV(estimator, est_params, cv=5, scoring=self.scoring_metric)
-            gscv.fit(train_actuals, train_features)
+            gscv.fit(train_features, train_actuals)
             print("best parameters are: {}".format(gscv.best_estimator_))
             print("best validation {} is: {}".format(self.scoring_metric, gscv.best_score_))
             self.single_classifier_best[name] = gscv
@@ -51,9 +51,9 @@ class BestRegressor:
         for name in self.single_classifier_best.keys():
             row = {}
             row['algorithm'] = name 
-            row[self.scoring_metric] = self.single_classifier_best[name].best_score_
+            row[self.scoring_metric] = self.single_classifier_best[name].best_score_            
             rows_list.append(row)
-        
+
         scoring_df = pd.DataFrame(rows_list)
         scoring_sorted = scoring_df.sort_values(self.scoring_metric, ascending=False)
         print()

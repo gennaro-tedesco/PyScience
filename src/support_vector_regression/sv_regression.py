@@ -13,7 +13,7 @@ def train_SVR_model(estimator, train_features, train_actuals):
 		'epsilon': [0.05, 0.1, 0.15]
 		}  
 
-	svr_gscv = GridSearchCV(estimator, parameter_grid, cv=10, scoring='r2')
+	svr_gscv = GridSearchCV(estimator, parameter_grid, cv=5, scoring='r2')
 	svr_gscv.fit(train_features, train_actuals)
 	
 	print("best parameters are: {}".format(svr_gscv.best_estimator_))
@@ -24,7 +24,7 @@ def sv_regression_main(data_df):
 	assert isinstance(data_df, pd.DataFrame)
 	actuals = get_regressor_actuals(data_df)
 	encoded_df = get_regressor_encoding(data_df)
-	feat_vectors, features_names = get_classifier_features(encoded_df) 
+	feat_vectors, features_names = get_regressor_features(encoded_df) 
 
 	train_features, test_features, train_actuals, test_actuals = get_split(feat_vectors, actuals)
 

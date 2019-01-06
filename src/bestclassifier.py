@@ -37,7 +37,7 @@ class BestClassifier:
             estimator = self.models[name]
             est_params = self.params[name]
             gscv = GridSearchCV(estimator, est_params, cv=5, scoring=self.scoring_metric)
-            gscv.fit(train_actuals, train_features)
+            gscv.fit(train_features, train_actuals)
             print("best parameters are: {}".format(gscv.best_estimator_))
             self.single_classifier_best[name] = gscv
     

@@ -7,7 +7,8 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.svm import SVR
-
+from src.utils import *
+from src.support_vector_regression.sv_regression import *
 
 ### -------------------------------------------------- ###
 ### change the below variables according to your needs ###
@@ -15,10 +16,10 @@ from sklearn.svm import SVR
 
 # the models that you want to compare
 models = {
-	'RandomForestRegressor': RandomForestRegressor(),
+	'SupportVectorRegressor': SVR(),
+	#'RandomForestRegressor': RandomForestRegressor(),
 	'LinearRegression': LinearRegression(),
-	'KNeighboursRegressor': KNeighborsRegressor(),
-	'SupportVectorRegressor': SVR()
+	'KNeighboursRegressor': KNeighborsRegressor()
 }
 
 # the optimisation parameters for each of the above models
@@ -46,7 +47,7 @@ params = {
 }
 
 # the data source
-file_name = "datasets/housing.csv"
+file_name = "datasets/regression/mpgcars.csv" 
 
 if __name__ == "__main__":
 	data_df = pd.read_csv(file_name)
@@ -57,5 +58,5 @@ if __name__ == "__main__":
 	train_features, test_features, train_actuals, test_actuals = get_split(feat_vectors, actuals)
 
 	bc = BestRegressor(models, params, 'r2')
-	bc.fit(train_actuals, train_features)
+	bc.fit(train_features, train_actuals)
 	bc.evaluation()

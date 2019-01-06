@@ -17,7 +17,7 @@ def train_kNN_model(estimator, train_features, train_actuals):
 	knn_gscv.fit(train_features, train_actuals)
 	
 	print("best parameters are: {}".format(knn_gscv.best_estimator_))
-	print("best accuracy score is: {}".format(knn_gscv.best_score_))
+	print("best f1_weighted score is: {}".format(knn_gscv.best_score_))
 	return knn_gscv.best_estimator_
 
 def kNN_classifier_main(data_df):

@@ -4,7 +4,6 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV
 from src.utils import *
 
-
 def train_rfr_model(estimator, train_features, train_actuals):
 	assert isinstance(train_features, pd.DataFrame)
 	assert isinstance(estimator, RandomForestRegressor)	
@@ -22,7 +21,8 @@ def train_rfr_model(estimator, train_features, train_actuals):
 def rfr_main(data_df):
 	assert isinstance(data_df, pd.DataFrame)
 	actuals = get_regressor_actuals(data_df)
-	encoded_df = get_regressor_encoding(data_df)    
+	encoded_df = get_regressor_encoding(data_df)  
+
 	feat_vectors, features_names = get_regressor_features(encoded_df) 
 
 	train_features, test_features, train_actuals, test_actuals = get_split(feat_vectors, actuals)

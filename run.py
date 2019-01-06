@@ -28,8 +28,8 @@ fun_map = {
 ### -------------------------------------------------- ###
 ### change the below variables according to your needs ###
 ### -------------------------------------------------- ###
-file_name = "datasets/diamonds.csv" 
-method = "support_vector_regression"
+file_name = "datasets/classification/mpgcars.csv" 
+method = "kNN_classifier"
 
 if __name__ == "__main__":
     print('-'*shutil.get_terminal_size().columns)

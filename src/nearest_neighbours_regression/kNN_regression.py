@@ -27,7 +27,7 @@ def kNN_regression_main(data_df):
 	feat_vectors, features_names = get_regressor_features(encoded_df) 
 
 	train_features, test_features, train_actuals, test_actuals = get_split(feat_vectors, actuals)
-
+	
 	print("training kNN classifier...")
 	estimator = KNeighborsRegressor()
 	kNN_model = train_kNN_model(estimator, train_features, train_actuals)

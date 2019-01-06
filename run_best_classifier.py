@@ -46,7 +46,7 @@ params = {
 }
 
 # the data source
-file_name = "datasets/mpgcars.csv"
+file_name = "datasets/classification/mpgcars.csv"
 
 if __name__ == "__main__":
 	data_df = pd.read_csv(file_name)
@@ -57,5 +57,5 @@ if __name__ == "__main__":
 	train_features, test_features, train_actuals, test_actuals = get_split(feat_vectors, actuals)
 
 	bc = BestClassifier(models, params, 'f1_weighted')
-	bc.fit(train_actuals, train_features)
+	bc.fit(train_features, train_actuals)
 	bc.evaluation()
