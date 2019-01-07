@@ -110,11 +110,14 @@ def plot_classifier_predictions(test_actuals, test_pred):
 		xticklabels=list(np.unique(test_actuals)), 
 		yticklabels=['recall', 'precision', 'f1-score'],
 		ax=ax1,
-		cmap='Blues')
+		cmap='Blues',
+		linewidths=0.5,
+		square=True)
 	ax1.set_title('classification report') 
 
 	skplt.metrics.plot_confusion_matrix(test_actuals, test_pred, 
 					normalize=True, 
+					x_tick_rotation=45,
 					ax=ax2)
 
 	plt.tight_layout()
