@@ -32,7 +32,7 @@ def sv_regression_main(data_df):
 	train_features, test_features = get_scaling(train_features, test_features)
 	scaler = StandardScaler()
 	train_actuals = scaler.fit_transform(train_actuals.values.reshape(-1, 1))
-	
+
 	print("training SV regression...")
 	estimator = SVR()
 	svr_model = train_SVR_model(estimator, train_features, train_actuals)

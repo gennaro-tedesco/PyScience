@@ -4,13 +4,14 @@ import scikitplot as skplt
 import seaborn as sns
 import numpy as np 
 import math 
+import pickle
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix, precision_recall_fscore_support
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import r2_score
 from src.cyclic_encoder.ce import get_cyclicl_encoding
 from sklearn.preprocessing import StandardScaler
-
+from sklearn.preprocessing import OneHotEncoder
 
 plt.style.use('seaborn-dark')
 plt.rcParams["axes.edgecolor"] = "black"
@@ -18,9 +19,55 @@ plt.rcParams["axes.linewidth"] = 1
 plt.rcParams["lines.linewidth"] = 0.5
 plt.rcParams["lines.markersize"] = 3
 
+
+def get_encoder_inst(feature_col):
+    """
+    returns: an instance of sklearn OneHotEncoder fit against a (training) column feature
+    such instance is saved and can then be loaded to transform unseen data
+    """
+    assert isinstance(feature_col, pd.Series)
+    feature_vec = feature_col.sort_values().values.reshape(-1, 1)
+    enc = OneHotEncoder(handle_unknown='ignore')
+    enc.fit(feature_vec) 
+    with open('encoders/' + feature_col.name + '_enc_inst.pkl', 'wb') as output_file:
+            pickle.dump(enc, output_file)
+    return enc 
+
+def get_one_hot_enc(feature_col, enc):
+    """
+    maps an unseen column feature using one-hot-encoding previously fit against training data 
+    returns: a pd.DataFrame of newly one-hot-encoded feature
+    """
+    assert isinstance(feature_col, pd.Series)
+    assert isinstance(enc, OneHotEncoder)
+    unseen_vec = feature_col.values.reshape(-1, 1)
+    encoded_vec = enc.transform(unseen_vec).toarray()
+    encoded_df = pd.DataFrame(encoded_vec)
+    cat_levels = [item for sublist in enc.categories_ for item in sublist]
+    encoded_df.columns = [feature_col.name + '_' + level for level in cat_levels]
+    return encoded_df
+
+def encode_train_df(df):
+    """
+    returns a data frame where categorical variables (or better, variables of 
+    type object) are encoded
+    """
+    assert isinstance(df, pd.DataFrame)
+    dt = df.copy().reset_index()
+    columns_to_encode = df.select_dtypes(include=['object']).columns
+    for feature in columns_to_encode:
+        print("encoding feature: {}".format(feature))
+        feature_enc_inst = get_encoder_inst(dt[feature])
+        encoded_feature_df = get_one_hot_enc(dt[feature], feature_enc_inst)
+        dt = pd.concat([dt, encoded_feature_df], axis=1)
+        dt.drop(feature, axis=1, inplace=True)
+    dt = dt.reindex(sorted(dt.columns), axis=1)
+    dt.drop('index', axis=1, inplace=True)
+    return dt
+
 def get_regressor_encoding(df):
 	assert isinstance(df, pd.DataFrame)
-	return pd.get_dummies(df)
+	return encode_train_df(df)
 
 def get_regressor_actuals(df):
 	assert isinstance(df, pd.DataFrame)
@@ -30,7 +77,7 @@ def get_regressor_actuals(df):
 def get_classifier_encoding(df):
 	assert isinstance(df, pd.DataFrame)
 	features = df.drop('actuals', axis=1)
-	return pd.get_dummies(features)
+	return encode_train_df(features)
 
 def get_classifier_actuals(df):
 	assert isinstance(df, pd.DataFrame)
