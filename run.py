@@ -10,7 +10,7 @@ from src.random_forest_classifier.rf_classifier import rfc_main
 from src.random_forest_regression.rf_regression import rfr_main
 from src.support_vector_classifier.sv_classifier import sv_classifier_main
 from src.support_vector_regression.sv_regression import sv_regression_main
-
+from src.neural_networks_regressor.NN_regressor import kerasNN_regression_main
 
 columns = shutil.get_terminal_size().columns
 
@@ -22,14 +22,15 @@ fun_map = {
     "random_forest_classifier": rfc_main,
     "random_forest_regression": rfr_main,
     "support_vector_classifier": sv_classifier_main,
-    "support_vector_regression": sv_regression_main
+    "support_vector_regression": sv_regression_main,
+    "NN_regression": kerasNN_regression_main
 }
 
 ### -------------------------------------------------- ###
 ### change the below variables according to your needs ###
 ### -------------------------------------------------- ###
 file_name = "datasets/regression/mpgcars.csv" 
-method = "random_forest_regression"
+method = "NN_regression"
 
 if __name__ == "__main__":
     print('-'*shutil.get_terminal_size().columns)

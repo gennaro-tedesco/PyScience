@@ -102,7 +102,7 @@ def get_classifier_features(df):
 def get_split(features, actuals):
 	assert isinstance(features, pd.DataFrame)
 	assert isinstance(actuals, pd.Series)
-	return train_test_split(features, actuals, test_size=0.25)
+	return train_test_split(features, actuals, shuffle=True, test_size=0.25)
 
 def get_scaling(train_features, test_features):
 	print("scaling numerical features...")

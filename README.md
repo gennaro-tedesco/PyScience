@@ -99,6 +99,7 @@ For regression problems we provide
 - support vectors regression
 - linear regression
 - nearest neighbours regression
+- keras neural network regressor
 
 Below is an example of output
 ```
